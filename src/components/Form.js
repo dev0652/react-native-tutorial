@@ -119,7 +119,7 @@ Form.propTypes = {
 // ***********************************************
 
 const { accent, faded, fadedBorder, fieldBackground, link } = theme.colors;
-const { small } = theme.borderRadius;
+const { small, button } = theme.borderRadius;
 const { defaultFontSize } = theme;
 
 const styles = StyleSheet.create({
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     // flexDirection: 'column-reverse',
   },
   button: {
-    borderRadius: 25,
+    borderRadius: button,
     backgroundColor: accent,
     paddingVertical: 16,
     paddingHorizontal: 32,
