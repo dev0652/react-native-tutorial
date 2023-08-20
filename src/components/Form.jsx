@@ -8,6 +8,8 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -71,76 +73,87 @@ export default function Form({ type = 'registration' }) {
   } = styles;
 
   return (
-    <View style={container}>
-      <View style={fieldsWrapper}>
-        {!isLogin && (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'padding' : ''}
+        // behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        // keyboardVerticalOffset={-185}
+        style={container}
+      >
+        {/* <View style={container}> */}
+        <View style={fieldsWrapper}>
+          {!isLogin && (
+            <TextInput
+              style={field(isNameFocused)}
+              placeholder="Username"
+              placeholderTextColor={faded}
+              onChangeText={onChangeName}
+              value={name}
+              onFocus={() => setIsNameFocused(true)}
+              onBlur={() => setIsNameFocused(false)}
+              // onSubmitEditing={({ target }) => target.clear()}
+              enablesReturnKeyAutomatically
+            />
+          )}
           <TextInput
-            style={field(isNameFocused)}
-            placeholder="Username"
+            style={field(isEmailFocused)}
+            keyboardType="email-address"
+            placeholder="Email"
             placeholderTextColor={faded}
-            onChangeText={onChangeName}
-            value={name}
-            onFocus={() => setIsNameFocused(true)}
-            onBlur={() => setIsNameFocused(false)}
+            onChangeText={onChangeEmail}
+            value={email}
+            onFocus={() => setIsEmailFocused(true)}
+            onBlur={() => setIsEmailFocused(false)}
             // onSubmitEditing={({ target }) => target.clear()}
             enablesReturnKeyAutomatically
           />
-        )}
-        <TextInput
-          style={field(isEmailFocused)}
-          keyboardType="email-address"
-          placeholder="Email"
-          placeholderTextColor={faded}
-          onChangeText={onChangeEmail}
-          value={email}
-          onFocus={() => setIsEmailFocused(true)}
-          onBlur={() => setIsEmailFocused(false)}
-          // onSubmitEditing={({ target }) => target.clear()}
-          enablesReturnKeyAutomatically
-        />
-        {/* Wrapper */}
-        <View style={showButtonWrapper}>
-          <TextInput
-            style={[field(isPasswordFocused), { paddingRight: linkWidth }]}
-            placeholderTextColor={faded}
-            secureTextEntry={isPasswordHidden}
-            placeholder="Password"
-            onChangeText={onChangePassword}
-            value={password}
-            onFocus={() => setIsPasswordFocused(true)}
-            onBlur={() => setIsPasswordFocused(false)}
-            // onSubmitEditing={({ target }) => target.clear()}
-            enablesReturnKeyAutomatically
-          />
+          {/* Wrapper */}
+          <View style={showButtonWrapper}>
+            <TextInput
+              style={[field(isPasswordFocused), { paddingRight: linkWidth }]}
+              placeholderTextColor={faded}
+              secureTextEntry={isPasswordHidden}
+              placeholder="Password"
+              onChangeText={onChangePassword}
+              value={password}
+              onFocus={() => setIsPasswordFocused(true)}
+              onBlur={() => setIsPasswordFocused(false)}
+              // onSubmitEditing={({ target }) => target.clear()}
+              enablesReturnKeyAutomatically
+            />
 
-          <View
-            style={showPasswordLink}
-            onLayout={(event) =>
-              setLinkWidth(event.nativeEvent.layout.width + 30)
-            }
-          >
-            <Pressable onPress={toggleShowPassword}>
-              <Text style={linkText}>{isPasswordHidden ? 'Show' : 'Hide'}</Text>
-            </Pressable>
+            <View
+              style={showPasswordLink}
+              onLayout={(event) =>
+                setLinkWidth(event.nativeEvent.layout.width + 30)
+              }
+            >
+              <Pressable onPress={toggleShowPassword}>
+                <Text style={linkText}>
+                  {isPasswordHidden ? 'Show' : 'Hide'}
+                </Text>
+              </Pressable>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={fieldsWrapper}>
-        <Pressable onPress={onFormSubmitPress} style={button}>
-          <Text style={buttonText}>
-            {isLogin ? 'Log in' : 'Create an account'}
-          </Text>
-        </Pressable>
+        <View style={fieldsWrapper}>
+          <Pressable onPress={onFormSubmitPress} style={button}>
+            <Text style={buttonText}>
+              {isLogin ? 'Log in' : 'Create an account'}
+            </Text>
+          </Pressable>
 
-        <Pressable onPress={onFormChangePress} style={link}>
-          <Text style={linkText}>
-            {isLogin
-              ? "Don't have an account? Register"
-              : 'Already have an account? Log in'}
-          </Text>
-        </Pressable>
-      </View>
-    </View>
+          <Pressable onPress={onFormChangePress} style={link}>
+            <Text style={linkText}>
+              {isLogin
+                ? "Don't have an account? Register"
+                : 'Already have an account? Log in'}
+            </Text>
+          </Pressable>
+        </View>
+        {/* </View> */}
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
+  // Keyboard,
+  // KeyboardAvoidingView,
+  // Platform,
+  // TouchableWithoutFeedback,
   StyleSheet,
   Text,
-  TouchableWithoutFeedback,
-  // View,
+  View,
 } from 'react-native';
 import { Avatar, Form } from '../components';
 
@@ -18,20 +18,11 @@ export default function RegistrationScreen() {
   const { container, title } = styles;
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == 'ios' ? 'padding' : ''}
-        // behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        // keyboardVerticalOffset={-185}
-        style={container}
-      >
-        {/* <View style={container}> */}
-        <Avatar />
-        <Text style={title}>Register</Text>
-        <Form />
-        {/* </View> */}
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    <View style={container}>
+      <Avatar />
+      <Text style={title}>Register</Text>
+      <Form />
+    </View>
   );
 }
 
