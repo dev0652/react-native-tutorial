@@ -7,7 +7,10 @@ import { StatusBar } from 'expo-status-bar';
 
 import bgImage from './public/images/photo-bg.png';
 
-import { RegistrationScreen, LoginScreen } from './src/Screens';
+import {
+  RegistrationScreen,
+  // LoginScreen
+} from './src/Screens';
 
 // ##############################################
 
