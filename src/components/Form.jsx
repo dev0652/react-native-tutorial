@@ -6,6 +6,8 @@ import {
   TextInput,
   View,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -81,34 +83,34 @@ export default function Form({ type = 'registration' }) {
             onFocus={() => setIsNameFocused(true)}
             onBlur={() => setIsNameFocused(false)}
             // onSubmitEditing={({ target }) => target.clear()}
-            // onSubmitEditing={() => setName('')}
+            enablesReturnKeyAutomatically
           />
         )}
         <TextInput
           style={field(isEmailFocused)}
           keyboardType="email-address"
           placeholder="Email"
-          // onFocus={ }
           placeholderTextColor={faded}
-          selectionColor={accent}
           onChangeText={onChangeEmail}
           value={email}
           onFocus={() => setIsEmailFocused(true)}
           onBlur={() => setIsEmailFocused(false)}
-          onSubmitEditing={({ target }) => target.clear()}
+          // onSubmitEditing={({ target }) => target.clear()}
+          enablesReturnKeyAutomatically
         />
+        {/* Wrapper */}
         <View style={showButtonWrapper}>
           <TextInput
             style={[field(isPasswordFocused), { paddingRight: linkWidth }]}
             placeholderTextColor={faded}
-            selectionColor={accent}
             secureTextEntry={isPasswordHidden}
             placeholder="Password"
             onChangeText={onChangePassword}
             value={password}
             onFocus={() => setIsPasswordFocused(true)}
             onBlur={() => setIsPasswordFocused(false)}
-            onSubmitEditing={({ target }) => target.clear()}
+            // onSubmitEditing={({ target }) => target.clear()}
+            enablesReturnKeyAutomatically
           />
 
           <View
@@ -123,7 +125,6 @@ export default function Form({ type = 'registration' }) {
           </View>
         </View>
       </View>
-
       <View style={fieldsWrapper}>
         <Pressable onPress={onFormSubmitPress} style={button}>
           <Text style={buttonText}>
@@ -142,12 +143,6 @@ export default function Form({ type = 'registration' }) {
     </View>
   );
 }
-
-// ***********************************************
-
-Form.propTypes = {
-  type: PropTypes.string,
-};
 
 // ***********************************************
 
@@ -201,3 +196,7 @@ const styles = StyleSheet.create({
 });
 
 // ***********************************************
+
+Form.propTypes = {
+  type: PropTypes.string,
+};

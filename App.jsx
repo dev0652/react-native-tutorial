@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  ImageBackground,
-  Keyboard,
-  SafeAreaView,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 // import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
@@ -40,15 +34,13 @@ export default function App() {
   // }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={StyleSheet.absoluteFill}>
-        <ImageBackground source={bgImage} resizeMode="cover" style={bg}>
-          <RegistrationScreen />
-          {/* <LoginScreen /> */}
-        </ImageBackground>
-        <StatusBar style="auto" />
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+    <SafeAreaView style={StyleSheet.absoluteFill}>
+      <ImageBackground source={bgImage} resizeMode="cover" style={bg}>
+        <RegistrationScreen />
+        {/* <LoginScreen /> */}
+      </ImageBackground>
+      <StatusBar style="auto" />
+    </SafeAreaView>
   );
 }
 // ***********************************************
