@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { Form } from '../components';
 
 import theme from '../styling/theme';
@@ -11,8 +17,12 @@ export default function LoginScreen() {
 
   return (
     <View style={container}>
-      <Text style={title}>Log in</Text>
-      <Form type="login" />
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      >
+        <Text style={title}>Log in</Text>
+        <Form type="login" />
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -27,6 +37,7 @@ const styles = StyleSheet.create({
     width: '100%',
     // height: '70%', // 550
     minHeight: '60%',
+    maxHeight: '70%',
 
     paddingHorizontal: 16,
 

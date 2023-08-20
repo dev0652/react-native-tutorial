@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Pressable, Text, StyleSheet, TextInput, View } from 'react-native';
+import {
+  Pressable,
+  Text,
+  StyleSheet,
+  TextInput,
+  View,
+  Alert,
+} from 'react-native';
 import PropTypes from 'prop-types';
 
 import theme from '../styling/theme';
@@ -28,6 +35,28 @@ export default function Form({ type = 'registration' }) {
 
   const [linkWidth, setLinkWidth] = useState(null);
 
+  const onFormChangePress = () => {};
+
+  const onFormSubmitPress = () => {
+    Alert.alert(
+      'You submitted:',
+      isLogin
+        ? `Email: ${email}\nPassword: ${password}`
+        : `Username: ${name} \nEmail: ${email}\nPassword: ${password}`
+    );
+
+    console.log(
+      'You submitted:',
+      isLogin
+        ? `Email: ${email}\nPassword: ${password}`
+        : `Username: ${name} \nEmail: ${email}\nPassword: ${password}`
+    );
+
+    !isLogin && setName('');
+    setEmail('');
+    setPassword('');
+  };
+
   const {
     container,
     fieldsWrapper,
@@ -51,6 +80,8 @@ export default function Form({ type = 'registration' }) {
             value={name}
             onFocus={() => setIsNameFocused(true)}
             onBlur={() => setIsNameFocused(false)}
+            // onSubmitEditing={({ target }) => target.clear()}
+            // onSubmitEditing={() => setName('')}
           />
         )}
         <TextInput
@@ -64,6 +95,7 @@ export default function Form({ type = 'registration' }) {
           value={email}
           onFocus={() => setIsEmailFocused(true)}
           onBlur={() => setIsEmailFocused(false)}
+          onSubmitEditing={({ target }) => target.clear()}
         />
         <View style={showButtonWrapper}>
           <TextInput
@@ -76,6 +108,7 @@ export default function Form({ type = 'registration' }) {
             value={password}
             onFocus={() => setIsPasswordFocused(true)}
             onBlur={() => setIsPasswordFocused(false)}
+            onSubmitEditing={({ target }) => target.clear()}
           />
 
           <View
@@ -92,13 +125,13 @@ export default function Form({ type = 'registration' }) {
       </View>
 
       <View style={fieldsWrapper}>
-        <Pressable onPress={onPressFunction} style={button}>
+        <Pressable onPress={onFormSubmitPress} style={button}>
           <Text style={buttonText}>
             {isLogin ? 'Log in' : 'Create an account'}
           </Text>
         </Pressable>
 
-        <Pressable onPress={onPressFunction} style={link}>
+        <Pressable onPress={onFormChangePress} style={link}>
           <Text style={linkText}>
             {isLogin
               ? "Don't have an account? Register"
@@ -168,5 +201,3 @@ const styles = StyleSheet.create({
 });
 
 // ***********************************************
-
-const onPressFunction = () => {};

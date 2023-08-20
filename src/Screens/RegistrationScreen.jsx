@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { Avatar, Form } from '../components';
 
 import theme from '../styling/theme';
@@ -11,9 +17,13 @@ export default function RegistrationScreen() {
 
   return (
     <View style={container}>
-      <Avatar />
-      <Text style={title}>Register</Text>
-      <Form />
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      >
+        <Avatar />
+        <Text style={title}>Register</Text>
+        <Form />
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -27,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     // height: '70%', // 550
-    // minHeight: '60%',
+    maxHeight: '70%',
 
     paddingHorizontal: 16,
 
