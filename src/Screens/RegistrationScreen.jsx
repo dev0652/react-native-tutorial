@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  // Keyboard,
   // KeyboardAvoidingView,
   // Platform,
-  // TouchableWithoutFeedback,
+  TouchableWithoutFeedback,
+  Keyboard,
   StyleSheet,
   Text,
   View,
@@ -18,11 +18,13 @@ export default function RegistrationScreen() {
   const { container, title } = styles;
 
   return (
-    <View style={container}>
-      <Avatar />
-      <Text style={title}>Register</Text>
-      <Form />
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={container}>
+        <Avatar />
+        <Text style={title}>Register</Text>
+        <Form />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 

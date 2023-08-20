@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { Form } from '../components';
 
 import theme from '../styling/theme';
@@ -10,10 +16,12 @@ export default function LoginScreen() {
   const { container, title } = styles;
 
   return (
-    <View style={container}>
-      <Text style={title}>Log in</Text>
-      <Form type="login" />
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={container}>
+        <Text style={title}>Log in</Text>
+        <Form type="login" />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
