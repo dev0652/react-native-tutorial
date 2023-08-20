@@ -1,6 +1,4 @@
 import React from 'react';
-// import { useCallback } from 'react';
-
 import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
@@ -42,7 +40,6 @@ export default function App() {
     </SafeAreaView>
   );
 }
-
 // ***********************************************
 
 const styles = StyleSheet.create({
