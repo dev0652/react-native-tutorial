@@ -6,10 +6,6 @@ import {
   TextInput,
   View,
   Alert,
-  KeyboardAvoidingView,
-  Platform,
-  Keyboard,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -24,9 +20,7 @@ export default function Form({ type = 'registration' }) {
   const [password, setPassword] = useState('');
   // const [image, setImage] = useState(null);
 
-  const [isNameFocused, setIsNameFocused] = useState(false);
-  const [isEmailFocused, setIsEmailFocused] = useState(false);
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [isInFocus, setIsInFocus] = useState(null);
 
   const onChangeName = (input) => setName(input);
   const onChangeEmail = (input) => setEmail(input);
@@ -39,7 +33,7 @@ export default function Form({ type = 'registration' }) {
 
   const [linkWidth, setLinkWidth] = useState(null);
 
-  const onFormChangePress = () => {};
+  const onSwitchFormLinkPress = () => {};
 
   const onFormSubmitPress = () => {
     Alert.alert(
@@ -61,95 +55,79 @@ export default function Form({ type = 'registration' }) {
     setPassword('');
   };
 
-  const {
-    container,
-    fieldsWrapper,
-    field,
-    button,
-    buttonText,
-    showPasswordLink,
-    linkText,
-    showButtonWrapper,
-  } = styles;
+  // const { container, fieldsWrapper, field, button, buttonText, showPasswordLink, linkText, showButtonWrapper, } = styles;
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS == 'ios' ? 'padding' : ''}
-      // behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-      // keyboardVerticalOffset={-185}
-      style={container}
-    >
-      {/* <View style={container}> */}
-      <View style={fieldsWrapper}>
+    <View style={styles.container}>
+      <View style={styles.fieldsWrapper}>
         {!isLogin && (
           <TextInput
-            style={field(isNameFocused)}
+            style={styles.field(isInFocus === 'name')}
+            onFocus={() => setIsInFocus('name')}
+            onBlur={() => setIsInFocus(null)}
             placeholder="Username"
             placeholderTextColor={faded}
             onChangeText={onChangeName}
             value={name}
-            onFocus={() => setIsNameFocused(true)}
-            onBlur={() => setIsNameFocused(false)}
-            // onSubmitEditing={({ target }) => target.clear()}
-            enablesReturnKeyAutomatically
+            enablesReturnKeyAutomatically // iOS
           />
         )}
         <TextInput
-          style={field(isEmailFocused)}
+          style={styles.field(isInFocus === 'email')}
+          onFocus={() => setIsInFocus('email')}
+          onBlur={() => setIsInFocus(null)}
           keyboardType="email-address"
           placeholder="Email"
           placeholderTextColor={faded}
           onChangeText={onChangeEmail}
           value={email}
-          onFocus={() => setIsEmailFocused(true)}
-          onBlur={() => setIsEmailFocused(false)}
-          // onSubmitEditing={({ target }) => target.clear()}
           enablesReturnKeyAutomatically
         />
         {/* Wrapper */}
-        <View style={showButtonWrapper}>
+        <View style={styles.showButtonWrapper}>
           <TextInput
-            style={[field(isPasswordFocused), { paddingRight: linkWidth }]}
+            style={[
+              styles.field(isInFocus === 'password'),
+              { paddingRight: linkWidth },
+            ]}
+            onFocus={() => setIsInFocus('password')}
+            onBlur={() => setIsInFocus(null)}
             placeholderTextColor={faded}
             secureTextEntry={isPasswordHidden}
             placeholder="Password"
             onChangeText={onChangePassword}
             value={password}
-            onFocus={() => setIsPasswordFocused(true)}
-            onBlur={() => setIsPasswordFocused(false)}
-            // onSubmitEditing={({ target }) => target.clear()}
             enablesReturnKeyAutomatically
           />
 
           <View
-            style={showPasswordLink}
-            onLayout={(event) =>
-              setLinkWidth(event.nativeEvent.layout.width + 30)
-            }
+            style={styles.showPasswordLink}
+            onLayout={(e) => setLinkWidth(e.nativeEvent.layout.width + 30)}
           >
             <Pressable onPress={toggleShowPassword}>
-              <Text style={linkText}>{isPasswordHidden ? 'Show' : 'Hide'}</Text>
+              <Text style={styles.linkText}>
+                {isPasswordHidden ? 'Show' : 'Hide'}
+              </Text>
             </Pressable>
           </View>
         </View>
       </View>
-      <View style={fieldsWrapper}>
-        <Pressable onPress={onFormSubmitPress} style={button}>
-          <Text style={buttonText}>
+      <View style={styles.fieldsWrapper}>
+        <Pressable onPress={onFormSubmitPress} style={styles.button}>
+          <Text style={styles.buttonText}>
             {isLogin ? 'Log in' : 'Create an account'}
           </Text>
         </Pressable>
 
-        <Pressable onPress={onFormChangePress} style={link}>
-          <Text style={linkText}>
+        <Pressable onPress={onSwitchFormLinkPress} style={styles.link}>
+          <Text style={styles.linkText}>
             {isLogin
               ? "Don't have an account? Register"
               : 'Already have an account? Log in'}
           </Text>
         </Pressable>
       </View>
-      {/* </View> */}
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -160,9 +138,7 @@ const { small, button } = theme.borderRadius;
 const { defaultFontSize } = theme;
 
 const styles = StyleSheet.create({
-  container: {
-    // flexDirection: 'column-reverse',
-  },
+  container: {},
   button: {
     borderRadius: button,
     backgroundColor: accent,
@@ -174,7 +150,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: defaultFontSize,
   },
-
   linkText: {
     textAlign: 'center',
     color: link,

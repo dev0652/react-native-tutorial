@@ -1,30 +1,49 @@
 import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 import {
-  // KeyboardAvoidingView,
-  // Platform,
+  KeyboardAvoidingView,
+  Platform,
   TouchableWithoutFeedback,
   Keyboard,
   StyleSheet,
   Text,
   View,
+  ImageBackground,
+  SafeAreaView,
 } from 'react-native';
 import { Avatar, Form } from '../components';
 
 import theme from '../styling/theme';
+import bgImage from '../../public/images/photo-bg.png';
 
 // ##############################################
 
 export default function RegistrationScreen() {
-  const { container, title } = styles;
+  // const { container, title, bg } = styles;
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={container}>
-        <Avatar />
-        <Text style={title}>Register</Text>
-        <Form />
-      </View>
-    </TouchableWithoutFeedback>
+    <SafeAreaView style={[{ flex: 1 }, StyleSheet.absoluteFill]}>
+      <ImageBackground
+        source={bgImage}
+        resizeMode="cover"
+        style={styles.background}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={-150}
+            style={styles.container}
+          >
+            <View style={styles.content}>
+              <Avatar />
+              <Text style={styles.title}>Register</Text>
+              <Form />
+            </View>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </ImageBackground>
+      <StatusBar style="auto" />
+    </SafeAreaView>
   );
 }
 
@@ -34,26 +53,20 @@ const { primaryText } = theme.colors;
 const { regular } = theme.borderRadius;
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    // height: '70%', // 550
-    // maxHeight: '70%',
-    // minHeight: '60%',
-
+  background: { flex: 1 },
+  container: { width: '100%', flex: 1, justifyContent: 'flex-end' },
+  content: {
     paddingHorizontal: 16,
-
     backgroundColor: 'white',
     borderTopLeftRadius: regular,
     borderTopRightRadius: regular,
   },
-
   title: {
     // fontFamily: 'Roboto_500Medium',
     fontSize: 30,
     fontWeight: '500',
     letterSpacing: 0.3,
     // wordWrap: 'break-word',
-
     textAlign: 'center',
     color: primaryText,
 

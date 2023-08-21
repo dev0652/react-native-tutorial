@@ -1,56 +1,26 @@
 import React from 'react';
-import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 
-// import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
-// import * as SplashScreen from 'expo-splash-screen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
 
-import bgImage from './public/images/photo-bg.png';
-
-import {
-  RegistrationScreen,
-  // LoginScreen
-} from './src/Screens';
+import { RegistrationScreen, LoginScreen } from './src/Screens';
 
 // ##############################################
 
-// SplashScreen.preventAutoHideAsync();
+const MainStack = createStackNavigator();
 
 export default function App() {
-  const { bg } = styles;
-
-  // const [fontsLoaded] = useFonts({
-  //   Roboto_400Regular, Roboto_500Medium, Roboto_700Bold
-  // });
-
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (fontsLoaded) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded]);
-
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
-
   return (
-    <SafeAreaView style={StyleSheet.absoluteFill}>
-      <ImageBackground source={bgImage} resizeMode="cover" style={bg}>
-        <RegistrationScreen />
-        {/* <LoginScreen /> */}
-      </ImageBackground>
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <NavigationContainer>
+      <MainStack.Navigator initialRouteName="Registration">
+        <MainStack.Screen
+          name="Registration"
+          component={RegistrationScreen}
+          options={{ title: 'Create an account' }}
+        />
+        <MainStack.Screen name="Login" component={LoginScreen} />
+      </MainStack.Navigator>
+    </NavigationContainer>
   );
 }
-// ***********************************************
-
-const styles = StyleSheet.create({
-  bg: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    width: '100%',
-    height: '100%',
-  },
-});
