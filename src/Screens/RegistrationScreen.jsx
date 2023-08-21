@@ -31,7 +31,7 @@ export default function RegistrationScreen() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={-150}
+            keyboardVerticalOffset={-120}
             style={styles.container}
           >
             <View style={styles.content}>
@@ -54,7 +54,11 @@ const { regular } = theme.borderRadius;
 
 const styles = StyleSheet.create({
   background: { flex: 1 },
-  container: { width: '100%', flex: 1, justifyContent: 'flex-end' },
+  container: {
+    width: '100%',
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
   content: {
     paddingHorizontal: 16,
     backgroundColor: 'white',
@@ -62,7 +66,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: regular,
   },
   title: {
-    // fontFamily: 'Roboto_500Medium',
     fontSize: 30,
     fontWeight: '500',
     letterSpacing: 0.3,
