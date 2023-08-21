@@ -13,7 +13,7 @@ import theme from '../styling/theme';
 
 // ##############################################
 
-export default function Form({ type = 'registration' }) {
+export default function Form({ type = 'registration', navigation }) {
   //
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -33,7 +33,9 @@ export default function Form({ type = 'registration' }) {
 
   const [linkWidth, setLinkWidth] = useState(null);
 
-  const onSwitchFormLinkPress = () => {};
+  const onSwitchFormLinkPress = () => {
+    navigation.navigate(isLogin ? 'Registration' : 'Login');
+  };
 
   const onFormSubmitPress = () => {
     Alert.alert(
@@ -183,4 +185,5 @@ const styles = StyleSheet.create({
 
 Form.propTypes = {
   type: PropTypes.string,
+  navigation: PropTypes.object,
 };

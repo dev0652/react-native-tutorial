@@ -17,9 +17,13 @@ export default function App() {
         <MainStack.Screen
           name="Registration"
           component={RegistrationScreen}
-          options={{ title: 'Create an account' }}
+          options={{ headerShown: false }}
         />
-        <MainStack.Screen name="Login" component={LoginScreen} />
+        <MainStack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
       </MainStack.Navigator>
     </NavigationContainer>
   );
